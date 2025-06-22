@@ -3,18 +3,38 @@ import pandas as pd
 import numpy as np
 import time
 import json
-# import Authlib
+import io
+import dropbox
+
+# Initialize Dropbox client
+dbx = dropbox.Dropbox(st.secrets["dropbox_token"])
+
+# Dropbox helper functions
+def load_json(path, default=None):
+    try:
+        metadata, res = dbx.files_download(path)
+        return json.load(io.BytesIO(res.content))
+    except dropbox.exceptions.ApiError:
+        return default if default is not None else {}
+
+def save_json(path, data):
+    buffer = io.BytesIO()
+    buffer.write(json.dumps(data, indent=4).encode())
+    buffer.seek(0)
+    dbx.files_upload(buffer.read(), path, mode=dropbox.files.WriteMode.overwrite)
+
+# UI State Setup
 logInScreen = st.empty()
 log = False
 first = True
 loggedIn = False
 auth = []
+
 with logInScreen.container():
-# Page state setup
     if "page" not in st.session_state:
         st.session_state.page = "log"
 
-# Button callbacks to switch pages
+    # Button callbacks to switch pages
     def switch_to_log():
         st.session_state.page = "log"
 
@@ -27,8 +47,7 @@ def logIn():
     st.header("Log In", divider="blue")
     email = st.text_input("Email address:", key="LogInEmail")
     password = st.text_input("Password:", type="password", key="LogInPass")
-    with open("accounts.json", "r") as file:
-        data = json.load(file)
+    data = load_json("/accounts.json", {"fName": [], "lName": [], "Email": [], "Password": []})
     signIn = st.button("Log In")
     if signIn:
         emailV = data["Email"]
@@ -54,8 +73,7 @@ def signUp():
     auth = [fName, lName, email, password]
     signUpCheck = st.button("Sign Up")
     if signUpCheck:
-        with open("accounts.json", "r") as file:
-            data = json.load(file)
+        data = load_json("/accounts.json", {"fName": [], "lName": [], "Email": [], "Password": []})
         if email in data["Email"]:
             st.error("Account already exists.")
         else:
@@ -63,8 +81,7 @@ def signUp():
             data["lName"].append(lName)
             data["Email"].append(email)
             data["Password"].append(password)
-            with open("accounts.json", "w") as file:
-                json.dump(data, file, indent=4)
+            save_json("/accounts.json", data)
             st.success("Account created successfully.")
             st.session_state.page = "log"
             st.session_state.loggedIn = True
@@ -85,10 +102,8 @@ with logInScreen.container():
 if st.session_state.get("loggedIn"):
     logInScreen.empty()
     st.header("MY WEBSITE!!")
-    with open("suggestions.json", "r") as file:
-        data = json.load(file)
+    data = load_json("/suggestions.json", {"data": []})
     suggestion = st.text_area("Write suggestions here.")
     if st.button("Submit Suggestion"):
         data["data"].append(suggestion)
-        with open("suggestions.json", "w") as file:
-            json.dump(data, file, indent=4)
+        save_json("/suggestions.json", data)
