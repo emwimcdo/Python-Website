@@ -3,31 +3,23 @@ import pandas as pd
 import numpy as np
 import time
 import json
-from streamlit_gsheets import GSheetsConnection
-
-conn = st.connection("gsheets", type=GSheetsConnection)
-existing_data = conn.read(worksheet="Coding")
-existing_data = existing_data.dropna(how="all")  # Clean empty rows
-
 # import Authlib
 logInScreen = st.empty()
 log = False
 first = True
+loggedIn = False
 auth = []
-
+with logInScreen.container():
 # Page state setup
-if "page" not in st.session_state:
-    st.session_state.page = "log"
-
-if "loggedIn" not in st.session_state:
-    st.session_state.loggedIn = False
+    if "page" not in st.session_state:
+        st.session_state.page = "log"
 
 # Button callbacks to switch pages
-def switch_to_log():
-    st.session_state.page = "log"
+    def switch_to_log():
+        st.session_state.page = "log"
 
-def switch_to_sign():
-    st.session_state.page = "sign"
+    def switch_to_sign():
+        st.session_state.page = "sign"
 
 # LOGIN FUNCTION
 def logIn():
@@ -35,15 +27,17 @@ def logIn():
     st.header("Log In", divider="blue")
     email = st.text_input("Email address:", key="LogInEmail")
     password = st.text_input("Password:", type="password", key="LogInPass")
+    with open("accounts.json", "r") as file:
+        data = json.load(file)
     signIn = st.button("Log In")
     if signIn:
-        if email in existing_data["Email"].values:
-            indexCheck = existing_data[existing_data["Email"] == email].index[0]
-            passV = existing_data.loc[indexCheck, "Password"]
-            if password == passV:
+        emailV = data["Email"]
+        passV = data["Password"]
+        if email in emailV:
+            indexCheck = emailV.index(email)
+            if password == passV[indexCheck]:
                 st.success("Logged in successfully.")
                 st.session_state.loggedIn = True
-                st.session_state.current_email = email
             else:
                 st.error("Incorrect password.")
         else:
@@ -60,22 +54,20 @@ def signUp():
     auth = [fName, lName, email, password]
     signUpCheck = st.button("Sign Up")
     if signUpCheck:
-        if email in existing_data["Email"].values:
+        with open("accounts.json", "r") as file:
+            data = json.load(file)
+        if email in data["Email"]:
             st.error("Account already exists.")
         else:
-            new_user = pd.DataFrame([{
-                "fName": fName,
-                "lName": lName,
-                "Email": email,
-                "Password": password,
-                "Suggestion": ""
-            }])
-            updated_data = pd.concat([existing_data, new_user], ignore_index=True)
-            conn.update(worksheet="Coding", data=updated_data)
+            data["fName"].append(fName)
+            data["lName"].append(lName)
+            data["Email"].append(email)
+            data["Password"].append(password)
+            with open("accounts.json", "w") as file:
+                json.dump(data, file, indent=4)
             st.success("Account created successfully.")
             st.session_state.page = "log"
             st.session_state.loggedIn = True
-            st.session_state.current_email = email
     return auth
 
 # PAGE CONTROLS
@@ -85,29 +77,18 @@ with logInScreen.container():
     elif st.session_state.page == "log":
         logIn()
 
-    if st.session_state.page == "sign" and not st.session_state.loggedIn:
+    if st.session_state.page == "sign" and not loggedIn:
         st.button("Already have an account? Sign in.", on_click=switch_to_log)
-    elif st.session_state.page == "log" and not st.session_state.loggedIn:
+    elif st.session_state.page == "log" and not loggedIn:
         st.button("New to our platform? Sign Up.", on_click=switch_to_sign)
 
 if st.session_state.get("loggedIn"):
     logInScreen.empty()
     st.header("MY WEBSITE!!")
-
+    with open("suggestions.json", "r") as file:
+        data = json.load(file)
     suggestion = st.text_area("Write suggestions here.")
     if st.button("Submit Suggestion"):
-        email = st.session_state.get("current_email")
-        if email and email in existing_data["Email"].values:
-            idx = existing_data[existing_data["Email"] == email].index[0]
-            new_row = pd.DataFrame([{
-                "fName": existing_data.loc[idx, "fName"],
-                "lName": existing_data.loc[idx, "lName"],
-                "Email": existing_data.loc[idx, "Email"],
-                "Password": existing_data.loc[idx, "Password"],
-                "Suggestion": suggestion
-            }])
-            updated_data = pd.concat([existing_data, new_row], ignore_index=True)
-            conn.update(worksheet="Coding", data=updated_data)
-            st.success("Suggestion successfully submitted!")
-        else:
-            st.error("Unable to find your user record.")
+        data["data"].append(suggestion)
+        with open("suggestions.json", "w") as file:
+            json.dump(data, file, indent=4)
