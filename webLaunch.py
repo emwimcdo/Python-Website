@@ -94,4 +94,3 @@ if st.session_state.get("loggedIn"):
         with open("suggestions.json", "w") as file:
             json.dump(data, file, indent=4)
         st.success("Suggestion successfully submitted!")
-        st.rerun(scope="fragment")
