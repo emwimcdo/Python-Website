@@ -6,7 +6,7 @@ import json
 from streamlit_gsheets import GSheetsConnection
 
 conn = st.connection("gsheets", type=GSheetsConnection)
-existing_data = conn.read()
+existing_data = conn.read(worksheet="Coding")
 existing_data = existing_data.dropna(how="all")  # Clean empty rows
 
 # import Authlib
