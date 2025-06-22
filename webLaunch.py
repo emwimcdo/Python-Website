@@ -90,5 +90,8 @@ if st.session_state.get("loggedIn"):
     suggestion = st.text_area("Write suggestions here.")
     if st.button("Submit Suggestion"):
         data["data"].append(suggestion)
+        
         with open("suggestions.json", "w") as file:
             json.dump(data, file, indent=4)
+        st.success("Suggestion successfully submitted!")
+        st.rerun(scope="fragment")
