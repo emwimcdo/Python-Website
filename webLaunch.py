@@ -142,4 +142,4 @@ if st.session_state.get("loggedIn"):
     if page == "Home":
         pass
     elif page == "Buy":
-        st.switch_page("About")
+        st.switch_page("pages/About.py")
