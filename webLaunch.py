@@ -135,7 +135,9 @@ if st.session_state.get("loggedIn"):
     if st.button("Submit Suggestion"):
         data["data"].append(suggestion)
         save_json("/suggestions.json", data)
-    st.sidebar.selectbox(
+    page = st.sidebar.selectbox(
         "Web Pages:",
         ("Home","Buy", "Something Else")
     )
+    if page == "Home":
+        st.switch_page("webLaunch.py")
