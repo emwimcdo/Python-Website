@@ -137,9 +137,9 @@ if st.session_state.get("loggedIn"):
         save_json("/suggestions.json", data)
     page = st.sidebar.selectbox(
         "Web Pages:",
-        ("Home","Buy", "Something Else")
+        ("Home","About", "Something Else")
     )
     if page == "Home":
         pass
-    elif page == "Buy":
-        st.switch_page("pages/About.py")
+    elif page == "About":
+        st.switch_page("About")
