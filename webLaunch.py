@@ -135,3 +135,11 @@ if st.session_state.get("loggedIn"):
     if st.button("Submit Suggestion"):
         data["data"].append(suggestion)
         save_json("/suggestions.json", data)
+    st.sidebar.button(
+        "Page:",
+        (
+            "Home",
+            "Buy"
+            "Something Else"
+        )
+    )
