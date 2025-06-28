@@ -136,5 +136,6 @@ if st.session_state.get("loggedIn"):
         data["data"].append(suggestion)
         save_json("/suggestions.json", data)
     st.sidebar.selectbox(
-        "Home","Buy", "Something Else"
+        "Web Pages:",
+        ("Home","Buy", "Something Else")
     )
