@@ -136,7 +136,5 @@ if st.session_state.get("loggedIn"):
         data["data"].append(suggestion)
         save_json("/suggestions.json", data)
     st.sidebar.button(
-        "Home",
-        "Buy",
-        "Something Else"
+        "Home","Buy", "Something Else"
     )
