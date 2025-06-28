@@ -137,7 +137,8 @@ if st.session_state.get("loggedIn"):
         save_json("/suggestions.json", data)
     page = st.sidebar.selectbox(
         "Web Pages:",
-        ("Home","Buy", "Something Else")
+        ("Home","Buy", "Something Else"), 
+        index="Home"
     )
     if page == "Home":
         st.switch_page("webLaunch.py")
