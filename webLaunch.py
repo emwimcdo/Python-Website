@@ -141,4 +141,6 @@ if st.session_state.get("loggedIn"):
         index="Home"
     )
     if page == "Home":
-        st.switch_page("webLaunch.py")
+        pass
+    elif page == "Buy":
+        st.switch_page("About")
