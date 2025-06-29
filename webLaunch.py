@@ -62,11 +62,12 @@ with top_placeholder:
     with col1:
         if not st.session_state.get("wantToLogIn") and not st.session_state.get("loggedIn"):
             logIn = st.button("Log in to your account")
+            if logIn:
+                st.session_state.wantToLogIn = True
     with col2:
         pass
 
-if logIn:
-    st.session_state.wantToLogIn = True
+
 if st.session_state.get("wantToLogIn"):
     st.switch_page("login")
     #st.page_link("pages/login.py", label="Login")
