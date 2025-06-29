@@ -138,10 +138,10 @@ if st.session_state.get("loggedIn"):
         st.success("You suggestion has been submitted successfully!")
         suggestion = ""
     pages = {
-        [
+        "Pages": [
             st.Page("pages/About.py", title="About This Website"),
             st.Page("webLaunch.py", title="Home"),
-        ]
+        ],
     }
     
     pg = st.navigation(pages, position = "top")
