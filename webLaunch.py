@@ -7,7 +7,7 @@ import io
 import dropbox
 import requests
 
-
+st.Page("pages/log_in.py", title="Log In"),
 #from dotenv import load_dotenv  # Only needed if running locally with .env
 
 # Optional: load .env values during local development
@@ -78,13 +78,9 @@ pages = {
     "Pages": [
         st.Page("home.py", title="Home"),
         st.Page("About.py", title="About This Website"),
-        st.Page("pages/log_in.py", title="Log In"),
     ],
 }
-filtered_pages = {
-    k: [p for p in v if p.name != "pages/log_in.py"]
-    for k, v in pages.items()
-}
 
-pg = st.navigation(filtered_pages, position="top")
+
+pg = st.navigation(pages, position="top")
 pg.run()
