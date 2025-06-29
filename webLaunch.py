@@ -6,13 +6,7 @@ import json
 import io
 import dropbox
 import requests
-from pathlib import Path
-if st.button("Log In"):
-    st.switch_page("log_in")
 
-st.write("📂 Pages folder contents:")
-pages = list(Path("pages").glob("*.py"))
-st.write([p.stem for p in pages])
 
 #from dotenv import load_dotenv  # Only needed if running locally with .env
 
