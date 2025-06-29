@@ -60,11 +60,7 @@ top_placeholder = st.empty()
 with top_placeholder:
     col1, col2 = st.columns([3, 1])
     with col1:
-        if not st.session_state.get("wantToLogIn") and not st.session_state.get("loggedIn"):
-            logIn = st.button("Log in to your account")
-            if logIn:
-                st.session_state.wantToLogIn = True
-                st.rerun()
+        pass
 
     with col2:
         pass
