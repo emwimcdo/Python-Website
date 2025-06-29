@@ -77,7 +77,7 @@ pages = {
     "Pages": [
         st.Page("home.py", title="Home"),
         st.Page("About.py", title="About This Website"),
-        st.Page("account.py"),
+        st.Page("account.py", title="Account"),
     ],
 }
 
