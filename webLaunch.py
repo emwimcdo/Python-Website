@@ -6,17 +6,6 @@ import json
 import io
 import dropbox
 import requests
-from pathlib import Path
-
-# Diagnostic: list all available page files
-st.write("📄 Current working directory:", Path.cwd())
-st.write("🔍 Looking for pages in:", Path("pages").resolve())
-st.write("📂 Contents of /pages/:")
-try:
-    pages = list(Path("pages").glob("*.py"))
-    st.write([p.name for p in pages])
-except Exception as e:
-    st.write("❌ Could not read pages directory:", e)
 
 #from dotenv import load_dotenv  # Only needed if running locally with .env
 
@@ -75,12 +64,13 @@ with top_placeholder:
             logIn = st.button("Log in to your account")
             if logIn:
                 st.session_state.wantToLogIn = True
+                st.experimental_rerun()
     with col2:
         pass
 
 if st.button("To Login"):
     st.switch_page("login")
-if st.session_state.get("wantToLogIn"):
+if st.session_state.wantToLogIn:
     st.switch_page("pages/login.py")
     #st.page_link("pages/login.py", label="Login")
 
