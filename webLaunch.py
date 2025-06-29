@@ -139,7 +139,7 @@ if st.session_state.get("loggedIn"):
         suggestion = ""
     pages = {
         "Pages": [
-            st.Page("pages/About.py", title="About This Website"),
+            st.Page("About.py", title="About This Website"),
             st.Page("webLaunch.py", title="Home"),
         ],
     }
