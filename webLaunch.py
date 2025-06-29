@@ -67,7 +67,8 @@ with top_placeholder:
     with col2:
         pass
 
-
+if st.button("To Login"):
+    st.switch_page("login")
 if st.session_state.get("wantToLogIn"):
     st.switch_page("pages/login.py")
     #st.page_link("pages/login.py", label="Login")
