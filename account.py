@@ -128,6 +128,6 @@ with logInScreen.container():
     elif st.session_state.page == "log" and not loggedIn:
         st.button("New to our platform? Sign Up.", on_click=switch_to_sign)
 
-if loggedIn:
+if st.session_state.get("loggedIn"):
     logInScreen.empty()
     st.write(f"You are now logged in! Welcome {auth[0]}!")
