@@ -55,7 +55,14 @@ st.session_state.wantToLogIn = False
 st.session_state.loggedIn = False
 if not st.session_state.get("wantToLogIn") and not st.session_state.get("loggedIn"):
     logIn = st.button("Log in to your account")
-    st.header(logIn)
+top_placeholder = st.empty()
+with top_placeholder:
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        logIn
+    with col2:
+        pass
+
 if logIn:
     st.session_state.wantToLogIn = True
 
