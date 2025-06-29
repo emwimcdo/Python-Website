@@ -1,4 +1,5 @@
 {
-    "SignedIn": false
+    "SignedIn": false,
+    "WantToSignIn": false
     
 }
