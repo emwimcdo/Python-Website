@@ -6,12 +6,13 @@ import json
 import io
 import dropbox
 import requests
-from streamlit.runtime.scriptrunner import get_pages
+from pathlib import Path
+if st.button("Log In"):
+    st.switch_page("log_in")
 
-pages = get_pages("")
-st.write("📄 Registered pages:")
-for key, page in pages.items():
-    st.write(f"- `{page['page_name']}` → `{page['script_path']}`")
+st.write("📂 Pages folder contents:")
+pages = list(Path("pages").glob("*.py"))
+st.write([p.stem for p in pages])
 
 #from dotenv import load_dotenv  # Only needed if running locally with .env
 
@@ -76,7 +77,7 @@ with top_placeholder:
         pass
 
 if st.session_state.wantToLogIn:
-    st.switch_page("log_in")
+    st.switch_page("pages/log_in.py")
     #st.page_link("pages/login.py", label="Login")
 
 pages = {
