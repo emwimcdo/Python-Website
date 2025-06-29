@@ -7,8 +7,6 @@ import io
 import dropbox
 import requests
 
-logIn = st.Page("pages/log_in.py", title="Log In")
-loggIn = st.switch_page(logIn)
 #from dotenv import load_dotenv  # Only needed if running locally with .env
 
 # Optional: load .env values during local development
@@ -72,7 +70,7 @@ with top_placeholder:
         pass
 
 if st.session_state.wantToLogIn:
-    loggIn.run()
+    st.switch_page("pages/log_in.py")
     #st.page_link("pages/login.py", label="Login")
 
 pages = {
