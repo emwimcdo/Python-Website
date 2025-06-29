@@ -51,13 +51,13 @@ def save_json(path, data):
     buffer.write(json.dumps(data, indent=4).encode())
     buffer.seek(0)
     dbx.files_upload(buffer.read(), path, mode=dropbox.files.WriteMode.overwrite)
-data = load_json("/variables.json", {"SignedIn": bool, "WantToSignIn": bool})
-if data["SignedIn"] == False:
+st.session_state.wantToLogIn = False
+st.session_state.loggedIn = False
+if not st.session_state.get("wantToLogIn") and not st.session_state.get("loggedIn"):
     logIn = st.button("Log in to your account")
     st.header(logIn)
 if logIn:
-    data["WantToSignIn"] = True
-    save_json("/variables", data)
+    st.session_state.wantToLogIn = True
 
 pages = {
     "Pages": [
