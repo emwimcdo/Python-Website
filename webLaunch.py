@@ -81,6 +81,10 @@ pages = {
         st.Page("pages/log_in.py", title="Log In"),
     ],
 }
-    
-pg = st.navigation(pages, position = "top")
+filtered_pages = {
+    k: [p for p in v if p.path != "pages/log_in.py"]
+    for k, v in pages.items()
+}
+
+pg = st.navigation(filtered_pages, position="top")
 pg.run()
