@@ -85,8 +85,9 @@ def logIn():
             indexCheck = emailV.index(email)
             if password == passV[indexCheck]:
                 st.success("Logged in successfully.")
-                st.session_state.loggedIn = True
                 auth = [data["fName"][indexCheck], data["lName"][indexCheck], data["Email"][indexCheck], data["Password"][indexCheck]]
+                st.session_state.loggedIn = True
+                
             else:
                 st.error("Incorrect password.")
         else:
