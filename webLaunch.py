@@ -66,8 +66,8 @@ with top_placeholder:
 if logIn:
     st.session_state.wantToLogIn = True
 if st.session_state.get("wantToLogIn"):
-    #st.switch_page("pages/login.py")
-    st.page_link("pages/login.py", label="Login")
+    st.switch_page("login")
+    #st.page_link("pages/login.py", label="Login")
 
 pages = {
     "Pages": [
