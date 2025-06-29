@@ -6,6 +6,12 @@ import json
 import io
 import dropbox
 import requests
+from streamlit.runtime.scriptrunner import get_pages
+
+pages = get_pages("")
+st.write("📄 Registered pages:")
+for key, page in pages.items():
+    st.write(f"- `{page['page_name']}` → `{page['script_path']}`")
 
 #from dotenv import load_dotenv  # Only needed if running locally with .env
 
