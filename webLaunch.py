@@ -51,8 +51,10 @@ def save_json(path, data):
     buffer.write(json.dumps(data, indent=4).encode())
     buffer.seek(0)
     dbx.files_upload(buffer.read(), path, mode=dropbox.files.WriteMode.overwrite)
-st.session_state.wantToLogIn = False
-st.session_state.loggedIn = False
+if "wantToLogIn" not in st.session_state:
+    st.session_state.wantToLogIn = False
+if "loggedIn" not in st.session_state:
+    st.session_state.loggedIn = False
 
 top_placeholder = st.empty()
 with top_placeholder:
@@ -66,7 +68,7 @@ with top_placeholder:
 if logIn:
     st.session_state.wantToLogIn = True
 if st.session_state.get("wantToLogIn"):
-    st.switch_page("Login")
+    st.switch_page("login")
     #st.page_link("pages/login.py", label="Login")
 
 pages = {
