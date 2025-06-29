@@ -90,6 +90,8 @@ def logIn():
                 st.error("Incorrect password.")
         else:
             st.error("Email not found.")
+    auth = [data["fName"], data["lName"], data["Email"], data["Password"]]
+    return auth
 
 # SIGNUP FUNCTION
 def signUp():
