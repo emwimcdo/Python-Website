@@ -64,7 +64,8 @@ with top_placeholder:
             logIn = st.button("Log in to your account")
             if logIn:
                 st.session_state.wantToLogIn = True
-                st.experimental_rerun()
+                st.rerun()
+
     with col2:
         pass
 
