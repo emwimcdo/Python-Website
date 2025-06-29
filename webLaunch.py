@@ -53,13 +53,13 @@ def save_json(path, data):
     dbx.files_upload(buffer.read(), path, mode=dropbox.files.WriteMode.overwrite)
 st.session_state.wantToLogIn = False
 st.session_state.loggedIn = False
-if not st.session_state.get("wantToLogIn") and not st.session_state.get("loggedIn"):
-    logIn = st.button("Log in to your account")
+
 top_placeholder = st.empty()
 with top_placeholder:
     col1, col2 = st.columns([3, 1])
     with col1:
-        logIn
+        if not st.session_state.get("wantToLogIn") and not st.session_state.get("loggedIn"):
+            logIn = st.button("Log in to your account")
     with col2:
         pass
 
