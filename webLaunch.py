@@ -135,6 +135,8 @@ if st.session_state.get("loggedIn"):
     if st.button("Submit Suggestion"):
         data["data"].append(suggestion)
         save_json("/suggestions.json", data)
+        st.success("You suggestion has been submitted successfully!")
+        suggestion = ""
     page = st.sidebar.selectbox(
         "Web Pages:",
         ("Home","About", "Something Else")
