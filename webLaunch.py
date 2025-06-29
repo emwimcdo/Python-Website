@@ -136,12 +136,13 @@ if st.session_state.get("loggedIn"):
         data["data"].append(suggestion)
         save_json("/suggestions.json", data)
         st.success("You suggestion has been submitted successfully!")
-        st.session_state.clear("suggestion")
-    page = st.sidebar.selectbox(
-        "Web Pages:",
-        ("Home","About", "Something Else")
-    )
-    if page == "Home":
-        pass
-    elif page == "About":
-        st.switch_page("About")
+        suggestion = ""
+    pages = {
+        [
+            st.Page("pages/About.py", title="About This Website"),
+            st.Page("webLaunch.py", title="Home"),
+        ]
+    }
+    
+    pg = st.navigation(pages, position = "top")
+    pg.run()
