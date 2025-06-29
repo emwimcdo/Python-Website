@@ -86,11 +86,12 @@ def logIn():
             if password == passV[indexCheck]:
                 st.success("Logged in successfully.")
                 st.session_state.loggedIn = True
+                auth = [data["fName"][indexCheck], data["lName"][indexCheck], data["Email"][indexCheck], data["Password"][indexCheck]]
             else:
                 st.error("Incorrect password.")
         else:
             st.error("Email not found.")
-    auth = [data["fName"], data["lName"], data["Email"], data["Password"]]
+    
     return auth
 
 # SIGNUP FUNCTION
