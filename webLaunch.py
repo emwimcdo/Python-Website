@@ -67,6 +67,7 @@ if logIn:
     st.session_state.wantToLogIn = True
 if st.session_state.get("wantToLogIn"):
     st.switch_page("pages/login.py")
+    st.page_link("pages/login.py")
 
 pages = {
     "Pages": [
