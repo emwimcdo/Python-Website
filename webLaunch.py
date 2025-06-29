@@ -57,7 +57,6 @@ if st.button("Submit Suggestion"):
 pages = {
     "Pages": [
         st.Page("About.py", title="About This Website"),
-        st.Page("webLaunch.py", title="Home"),
     ],
 }
     
