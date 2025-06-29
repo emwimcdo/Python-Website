@@ -45,6 +45,7 @@ def save_json(path, data):
     buffer.seek(0)
     dbx.files_upload(buffer.read(), path, mode=dropbox.files.WriteMode.overwrite)
 
+st.warning("THIS WEBSITE IS CURRENTLY UNDER DEVELOPMENT!! DO NOT RELY ON WEBSITE STABILITy. YOU MAY BE KICKED AT ANY MOMENT.")
 st.header("MY WEBSITE!!")
 data = load_json("/suggestions.json", {"data": []})
 suggestion = st.text_area("Write suggestions here.")
