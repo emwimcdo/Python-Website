@@ -56,7 +56,8 @@ def save_json(path, data):
 logInScreen = st.empty()
 log = False
 first = True
-loggedIn = False
+if "loggedIn" not in st.session_state:
+    st.session_state.loggedIn = False
 auth = []
 
 with logInScreen.container():
@@ -121,16 +122,17 @@ def signUp():
     return auth
 
 # PAGE CONTROLS
-with logInScreen.container():
-    if st.session_state.page == "sign":
-        signUp()
-    elif st.session_state.page == "log":
-        logIn()
+if not st.session_state.get("loggedIn"):
+    with logInScreen.container():
+        if st.session_state.page == "sign":
+            signUp()
+        elif st.session_state.page == "log":
+            logIn()
 
-    if st.session_state.page == "sign" and not loggedIn:
-        st.button("Already have an account? Sign in.", on_click=switch_to_log)
-    elif st.session_state.page == "log" and not loggedIn:
-        st.button("New to our platform? Sign Up.", on_click=switch_to_sign)
+        if st.session_state.page == "sign" and not st.session_state.get("loggedIn"):
+            st.button("Already have an account? Sign in.", on_click=switch_to_log)
+        elif st.session_state.page == "log" and not st.session_state.get("loggedIn"):
+            st.button("New to our platform? Sign Up.", on_click=switch_to_sign)
 
 if st.session_state.get("loggedIn"):
     logInScreen.empty()
