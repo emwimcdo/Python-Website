@@ -6,7 +6,7 @@ import json
 import io
 import dropbox
 import requests
-
+st.info("COOL. I wondered about this.")
 st.title("My Contact Info")
 st.write("Contact me about questions, suggestions, and to ask for commissions.")
 st.write("Email me at emwimcdo@gmail.com")
