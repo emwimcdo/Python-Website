@@ -56,14 +56,37 @@ if "wantToLogIn" not in st.session_state:
 if "loggedIn" not in st.session_state:
     st.session_state.loggedIn = False
 
-top_placeholder = st.empty()
-with top_placeholder:
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        st.write("HERE")
+import streamlit.components.v1 as components
 
-    with col2:
-        pass
+st.set_page_config(layout="wide")
+
+# Custom top-fixed banner on the right
+components.html(
+    """
+    <style>
+        .top-right-banner {
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #40DCA5;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            z-index: 9999;
+            border-bottom-left-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        body {
+            padding-top: 50px;  /* Prevent content from hiding behind the banner */
+        }
+    </style>
+    <div class="top-right-banner">
+        ☕ Support Me on Buy Me a Coffee
+    </div>
+    """,
+    height=0
+)
+
 
 if st.session_state.wantToLogIn:
     st.switch_page("pages/log_in.py")
