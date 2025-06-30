@@ -60,7 +60,7 @@ top_placeholder = st.empty()
 with top_placeholder:
     col1, col2 = st.columns([3, 1])
     with col1:
-        pass
+        st.write("HERE")
 
     with col2:
         pass
