@@ -95,7 +95,7 @@ def logIn():
         else:
             st.error("Email not found.")
     
-    return auth
+    return st.session_state.get["auth"]
 
 # SIGNUP FUNCTION
 def signUp():
