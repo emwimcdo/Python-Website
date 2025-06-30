@@ -1,2 +1,2 @@
 import streamlit as st
-st.switch_page("payment.py")
+st.switch_page("Donate")
