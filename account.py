@@ -95,7 +95,7 @@ def logIn():
         else:
             st.error("Email not found.")
     
-    return st.session_state.get["auth"]
+    return st.session_state.get("auth", [])
 
 # SIGNUP FUNCTION
 def signUp():
@@ -105,7 +105,7 @@ def signUp():
     lName = st.text_input("Last Name:", key="SignUpLName")
     email = st.text_input("Email address:", key="SignUpEmail")
     password = st.text_input("Password:", type="password", key="SignUpPass")
-    auth = [st.session_state["SignUpFName"], st.session_state["SignUpLName"], st.session_state["SignUpEmail"], st.session_state["SignUpPass"]]
+    st.session_state["auth"] = [st.session_state["SignUpFName"], st.session_state["SignUpLName"], st.session_state["SignUpEmail"], st.session_state["SignUpPass"]]
     signUpCheck = st.button("Sign Up")
     if signUpCheck:
         data = load_json("/accounts.json", {"fName": [], "lName": [], "Email": [], "Password": []})
@@ -120,7 +120,7 @@ def signUp():
             st.success("Account created successfully.")
             st.session_state.page = "log"
             st.session_state.loggedIn = True
-    return st.session_state.get["auth"]
+    return st.session_state.get("auth", [])
 
 # PAGE CONTROLS
 if not st.session_state.get("loggedIn"):
