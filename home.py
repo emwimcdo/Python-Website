@@ -56,4 +56,4 @@ if st.button("Submit Suggestion"):
     save_json("/suggestions.json", data)
     st.success("You suggestion has been submitted successfully!")
     suggestionBox.empty()
-st.toast("Submit suggestions on what do do with this website or what kind of a website to make here.")
+st.toast("Submit suggestions on what do do with this website or what kind of a website to make here.", icon="ℹ️")
