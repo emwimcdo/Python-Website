@@ -60,31 +60,24 @@ import streamlit.components.v1 as components
 
 
 
-# Custom top-fixed banner on the right
 components.html(
     """
-    <style>
-        .top-right-banner {
-            position: fixed;
-            top: 0;
-            right: 0;
-            background-color: #40DCA5;
-            color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            z-index: 9999;
-            border-bottom-left-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-        }
-        body {
-            padding-top: 50px;  /* Prevent content from hiding behind the banner */
-        }
-    </style>
-    <div class="top-right-banner">
-        ☕ Support Me on Buy Me a Coffee
+    <div style="
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: #40DCA5;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        z-index: 1000;
+        border-bottom-left-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    ">
+        ☕ <a href='https://www.buymeacoffee.com/LimeMcMile' style='color: white; text-decoration: none;'>Support Me on Buy Me a Coffee</a>
     </div>
     """,
-    height=0
+    height=60
 )
 
 
