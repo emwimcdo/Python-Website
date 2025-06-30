@@ -58,7 +58,7 @@ if "loggedIn" not in st.session_state:
 
 import streamlit.components.v1 as components
 
-st.set_page_config(layout="wide")
+
 
 # Custom top-fixed banner on the right
 components.html(
