@@ -75,6 +75,7 @@ pages = {
         st.Page("About.py", title="About This Website"),
         st.Page("account.py", title="Account"),
         st.Page("contact.py", title="Contact Me"),
+        st.Page("payment.py", title="Donate to the cause (Just to practice transaction coding.)")
     ],
 }
 
