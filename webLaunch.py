@@ -59,29 +59,6 @@ if "loggedIn" not in st.session_state:
 import streamlit.components.v1 as components
 
 
-st.markdown("<br>", unsafe_allow_html=True)
-
-# Sticky banner within the scrollable area
-components.html(
-    """
-    <div style="
-        position: sticky;
-        top: 0;
-        background-color: #40DCA5;
-        color: white;
-        padding: 12px 24px;
-        font-size: 16px;
-        z-index: 1000;
-        border-radius: 0 0 8px 8px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        text-align: right;
-    ">
-        ☕ <a href='https://www.buymeacoffee.com/LimeMcMile' style='color: white; text-decoration: none;'>Support Me on Buy Me a Coffee</a>
-    </div>
-    """,
-    height=70
-)
-
 
 if st.session_state.wantToLogIn:
     st.switch_page("pages/log_in.py")
