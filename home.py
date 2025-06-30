@@ -48,9 +48,11 @@ def save_json(path, data):
 st.warning("THIS WEBSITE IS CURRENTLY UNDER DEVELOPMENT!! DO NOT RELY ON WEBSITE STABILITY. YOU MAY BE KICKED AT ANY MOMENT.")
 st.header("MY WEBSITE!!")
 data = load_json("/suggestions.json", {"data": []})
-suggestion = st.text_area("Write suggestions here.")
+suggestionBox = st.empty()
+with suggestionBox.container():
+    suggestion = st.text_area("Write suggestions here.")
 if st.button("Submit Suggestion"):
     data["data"].append(suggestion)
     save_json("/suggestions.json", data)
     st.success("You suggestion has been submitted successfully!")
-    suggestion = ""
+    suggestionBox.empty()

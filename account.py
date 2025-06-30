@@ -58,7 +58,8 @@ log = False
 first = True
 if "loggedIn" not in st.session_state:
     st.session_state.loggedIn = False
-auth = []
+if "auth" not in st.session_state:
+    st.session_state.auth = []
 
 with logInScreen.container():
     if "page" not in st.session_state:
@@ -86,7 +87,7 @@ def logIn():
             indexCheck = emailV.index(email)
             if password == passV[indexCheck]:
                 st.success("Logged in successfully.")
-                auth = [data["fName"][indexCheck], data["lName"][indexCheck], data["Email"][indexCheck], data["Password"][indexCheck]]
+                st.session_state["auth"] = [data["fName"][indexCheck], data["lName"][indexCheck], data["Email"][indexCheck], data["Password"][indexCheck]]
                 st.session_state.loggedIn = True
                 
             else:
@@ -104,7 +105,7 @@ def signUp():
     lName = st.text_input("Last Name:", key="SignUpLName")
     email = st.text_input("Email address:", key="SignUpEmail")
     password = st.text_input("Password:", type="password", key="SignUpPass")
-    auth = [fName, lName, email, password]
+    auth = [st.session_state["SignUpFName"], st.session_state["SignUpLName"], st.session_state["SignUpEmail"], st.session_state["SignUpPass"]]
     signUpCheck = st.button("Sign Up")
     if signUpCheck:
         data = load_json("/accounts.json", {"fName": [], "lName": [], "Email": [], "Password": []})
@@ -119,7 +120,7 @@ def signUp():
             st.success("Account created successfully.")
             st.session_state.page = "log"
             st.session_state.loggedIn = True
-    return auth
+    return st.session_state.get["auth"]
 
 # PAGE CONTROLS
 if not st.session_state.get("loggedIn"):
@@ -136,4 +137,5 @@ if not st.session_state.get("loggedIn"):
 
 if st.session_state.get("loggedIn"):
     logInScreen.empty()
+    auth = st.session_state.get("auth", [])
     st.write(f"You are now logged in! Welcome {auth[0]}!")
