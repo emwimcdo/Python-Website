@@ -8,5 +8,5 @@ import dropbox
 import requests
 
 st.title("My Contact Info")
-st.markdown("[Email Me](mailto:emwimcdo@gmail.com)")
+st.write("Email me at emwimcdo@gmail.com")
 st.markdown("[Text Me](sms:+12077479313)")
