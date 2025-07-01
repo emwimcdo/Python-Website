@@ -71,7 +71,8 @@ pages = {
         st.Page("account.py", title="Account"),
         st.Page("contact.py", title="Contact Me"),
         st.Page("spacer.py", title="─────────────────────────────────"),
-        st.Page("payment.py", title="Donate")
+        st.Page("payment.py", title="Products"),
+        st.Page("chat.py", title="Converse")
     ],
 }
 
