@@ -56,7 +56,11 @@ if "wantToLogIn" not in st.session_state:
 if "loggedIn" not in st.session_state:
     st.session_state.loggedIn = False
 
+
+def sendMessage(message, user = st.session_state.get("fName")):
+    pass
 st.title("Converse")
 chatInput = st.chat_input("Message:",accept_file="multiple", file_type=["jpg", "jped", "png"])
 with st.chat_message(name="user"):
     st.write(chatInput)
+st.camera_input()
