@@ -57,4 +57,6 @@ if "loggedIn" not in st.session_state:
     st.session_state.loggedIn = False
 
 st.title("Converse")
-st.chat_input("Message:")
+chatInput = st.chat_input("Message:",accept_file="multiple", file_type=["jpg", "jped", "png"])
+with st.chat_message(name="user"):
+    st.write(chatInput)
