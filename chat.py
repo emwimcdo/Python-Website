@@ -35,6 +35,7 @@ def refresh_access_token():
         st.error(f"❌ Token refresh failed! Status code: {res.status_code}")
         st.write(res.text)  # Show raw text if .json() didn’t work
         st.stop()
+
 # Initialize Dropbox client with fresh access token
 dbx = dropbox.Dropbox(refresh_access_token())
 
@@ -51,29 +52,48 @@ def save_json(path, data):
     buffer.write(json.dumps(data, indent=4).encode())
     buffer.seek(0)
     dbx.files_upload(buffer.read(), path, mode=dropbox.files.WriteMode.overwrite)
+
+# App session state
 if "wantToLogIn" not in st.session_state:
     st.session_state.wantToLogIn = False
 if "loggedIn" not in st.session_state:
     st.session_state.loggedIn = False
 
-
 def sendMessage(message, user = st.session_state.get("fName")):
     pass
-st.title("Converse")
-chatInput = st.chat_input("Message:",accept_file="multiple", file_type=["jpg", "jpeg", "png"])
 
+st.title("Converse")
+
+# Main chat input
+chatInput = st.chat_input("Message:", accept_file="multiple", file_type=["jpg", "jpeg", "png"])
+
+# Keep message and attachment history persistent
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "attachments" not in st.session_state:
     st.session_state.attachments = []
-if chatInput.get("text"):
-    st.session_state.messages.append(chatInput.get("text"))
-    for i in st.session_state.messages:
-        with st.chat_message(name="user"):
-            st.write(i)
-if chatInput.get("files"):
-    st.session_state.attachments.extend(chatInput.get("files"))
-    for i in st.session_state.attachments:
-        with st.chat_message(name="user"):
-            st.image(i)
-    
+
+# Handle chat input depending on structure
+if chatInput:
+    if isinstance(chatInput, dict):  # input has text + files
+        text = chatInput.get("text")
+        files = chatInput.get("files", [])
+    else:  # input is just text string
+        text = chatInput
+        files = []
+
+    if text:
+        st.session_state.messages.append(text)
+
+    if files:
+        st.session_state.attachments.extend(files)
+
+# Display text messages
+for i in st.session_state.messages:
+    with st.chat_message(name="user", avatar="💬"):
+        st.write(i)
+
+# Display uploaded images
+for file in st.session_state.attachments:
+    with st.chat_message(name="user", avatar="📸"):
+        st.image(file)
