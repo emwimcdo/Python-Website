@@ -67,12 +67,12 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 if "attachments" not in st.session_state:
     st.session_state.attachments = []
-if chatInput["text"]:
+if chatInput.get("text"):
     st.session_state.messages.append(chatInput.get("text"))
     for i in st.session_state.messages:
         with st.chat_message(name="user"):
             st.write(i)
-if chatInput["files"]:
+if chatInput.get("files"):
     st.session_state.attachments.append(chatInput.get("files"))
     for i in st.session_state.messages:
         with st.chat_message(name="user"):
