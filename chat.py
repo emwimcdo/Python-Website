@@ -60,7 +60,6 @@ if "loggedIn" not in st.session_state:
 def sendMessage(message, user = st.session_state.get("fName")):
     pass
 st.title("Converse")
-st.number_input("Here")
 chatInput = st.chat_input("Message:",accept_file="multiple", file_type=["jpg", "jpeg", "png"])
 
 if "messages" not in st.session_state:
@@ -73,8 +72,8 @@ if chatInput.get("text"):
         with st.chat_message(name="user"):
             st.write(i)
 if chatInput.get("files"):
-    st.session_state.attachments.append(chatInput.get("files"))
-    for i in st.session_state.messages:
+    st.session_state.attachments.extend(chatInput.get("files"))
+    for i in st.session_state.attachments:
         with st.chat_message(name="user"):
             st.image(i)
     
