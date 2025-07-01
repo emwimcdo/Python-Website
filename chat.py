@@ -62,5 +62,12 @@ def sendMessage(message, user = st.session_state.get("fName")):
 st.title("Converse")
 st.number_input("Here")
 chatInput = st.chat_input("Message:",accept_file="multiple", file_type=["jpg", "jped", "png"])
-with st.chat_message(name="user"):
-    st.write(chatInput)
+messages = []
+plusEquals = 0
+if chatInput:
+    messages.append(chatInput)
+for i in messages:
+    with st.chat_message(name="user"):
+        st.write(messages[plusEquals])
+        plusEquals += 1
+    
