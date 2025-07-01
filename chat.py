@@ -65,10 +65,16 @@ chatInput = st.chat_input("Message:",accept_file="multiple", file_type=["jpg", "
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
-
-if chatInput:
-    st.session_state.messages.append(chatInput)
-for i in st.session_state.messages:
-    with st.chat_message(name="user"):
-        st.write(i)
+if "attachments" not in st.session_state:
+    st.session_state.attachments = []
+if chatInput["text"]:
+    st.session_state.messages.append(chatInput["text"])
+    for i in st.session_state.messages:
+        with st.chat_message(name="user"):
+            st.write(i)
+if chatInput["files"]:
+    st.session_state.attachments.append(chatInput["files"])
+    for i in st.session_state.messages:
+        with st.chat_message(name="user"):
+            st.image(i)
     
