@@ -67,12 +67,25 @@ st.title("Converse")
 # Main chat input
 chatInput = st.chat_input("Message:")#, accept_file="multiple", file_type=["jpg", "jpeg", "png"])
 if "messageHistory" not in st.session_state:
-    st.session_state.messageHistory = []
+    st.session_state.messageHistory = {
+        "Sender": "",
+        "Content": ""
+    }
 
-if chatInput:
-    st.session_state.messageHistory.append(chatInput)
+if chatInput and st.session_state.get("auth", [])[0]:
+    dataToAppend = {
+        "Sender": st.session_state.get("auth", [])[0],
+        "Content": chatInput
+    }
+    st.session_state.messageHistory.append(dataToAppend)
+else:
+    dataToAppend = {
+        "Sender": "Guest User",
+        "Content": chatInput
+    }
+    st.session_state.messageHistory.append(dataToAppend)
 
-for i in st.session_state.get("messageHistory", []):
+for i in st.session_state.get("messageHistory"):
     if "auth" not in st.session_state:
         with st.chat_message(name="Guest User"):
             st.write("Guest User: "+i)
