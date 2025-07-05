@@ -75,9 +75,9 @@ if chatInput:
 for i in st.session_state.get("messageHistory", []):
     if "fName" not in st.session_state:
         with st.chat_message(name="Guest User"):
-            st.write(i)
+            st.write("Guest User: "+i)
     else:
         with st.chat_message(name=st.session_state.get("fName")):
-            st.write(i)
+            st.write(f"{st.session_state.get("fName")}: {i}")
 
 
