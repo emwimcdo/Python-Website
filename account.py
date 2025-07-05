@@ -139,6 +139,9 @@ if not st.session_state.get("loggedIn"):
 if st.session_state.get("loggedIn"):
     if "pick" not in st.session_state:
         st.session_state.pick = False
+    if "confirmedPfp" not in st.session_state:
+        st.session_state.confirmedPfp = False
+
     logInScreen.empty()
     auth = st.session_state.get("auth", [])
     st.write(f"You are now logged in! Welcome {auth[0]}!")
@@ -150,4 +153,6 @@ if st.session_state.get("loggedIn"):
         if st.session_state.get("pfpSessionState"):
             st.session_state["auth"][4] = st.session_state.get("pfpSessionState")
             if st.button("Submit Profile Image"):
+                st.session_state["confirmedPfp"] = True
+            if st.session_state.get("confirmedPfp"):
                 st.session_state["pick"] = False
