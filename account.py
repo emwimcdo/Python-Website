@@ -151,6 +151,5 @@ if st.session_state.get("loggedIn"):
         # Confirm and use the value directly from session_state
         if st.button("Confirm profile change"):
             st.session_state["auth"][4] = st.session_state["pfpSessionState"]  # Already stored
-            st.success(f"✅ Your new profile picture is {st.session_state['pfpSessionState']}")
             st.session_state.pick = False
             
