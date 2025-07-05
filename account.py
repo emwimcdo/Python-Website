@@ -140,5 +140,4 @@ if st.session_state.get("loggedIn"):
     logInScreen.empty()
     auth = st.session_state.get("auth", [])
     st.write(f"You are now logged in! Welcome {auth[0]}!")
-    st.write(auth)
-    #st.button(f"Would you like to change your profile picture? Your current one is {auth[4]}.")
+    st.button(f"Would you like to change your profile picture? Your current one is {auth[4]}.")
