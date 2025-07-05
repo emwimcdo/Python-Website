@@ -116,6 +116,7 @@ def signUp():
             data["lName"].append(lName)
             data["Email"].append(email)
             data["Password"].append(password)
+            data["Profile Picture"].append("👤")
             save_json("/accounts.json", data)
             st.success("Account created successfully.")
             st.session_state.page = "log"
