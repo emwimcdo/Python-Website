@@ -66,4 +66,14 @@ st.title("Converse")
 
 # Main chat input
 chatInput = st.chat_input("Message:")#, accept_file="multiple", file_type=["jpg", "jpeg", "png"])
+if "messageHistory" not in st.session_state:
+    st.session_state.messageHistory = []
+
+if chatInput:
+    st.session_state.messageHistory.append(chatInput)
+
+for i in st.session_state.messageHistory:
+    with st.chat_message(name=st.session_state.get("fName")):
+        st.write(st.session_state.get("messageHistory")[i])
+
 
