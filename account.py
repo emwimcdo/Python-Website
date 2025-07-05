@@ -124,6 +124,18 @@ def signUp():
     return st.session_state.get("auth", [])
 
 # PAGE CONTROLS
+if not st.session_state.get("loggedIn"):
+    with logInScreen.container():
+        if st.session_state.page == "sign":
+            signUp()
+        elif st.session_state.page == "log":
+            logIn()
+
+        if st.session_state.page == "sign" and not st.session_state.get("loggedIn"):
+            st.button("Already have an account? Sign in.", on_click=switch_to_log)
+        elif st.session_state.page == "log" and not st.session_state.get("loggedIn"):
+            st.button("New to our platform? Sign Up.", on_click=switch_to_sign)
+
 if st.session_state.get("loggedIn"):
     if "pick" not in st.session_state:
         st.session_state.pick = False
