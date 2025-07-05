@@ -65,35 +65,5 @@ def sendMessage(message, user = st.session_state.get("fName")):
 st.title("Converse")
 
 # Main chat input
-chatInput = st.chat_input("Message:", accept_file="multiple", file_type=["jpg", "jpeg", "png"])
+chatInput = st.chat_input("Message:")#, accept_file="multiple", file_type=["jpg", "jpeg", "png"])
 
-# Keep message and attachment history persistent
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-if "attachments" not in st.session_state:
-    st.session_state.attachments = []
-
-# Handle chat input depending on structure
-if chatInput:
-    if isinstance(chatInput, dict):  # input has text + files
-        text = chatInput.get("text")
-        files = chatInput.get("files", [])
-    else:  # input is just text string
-        text = chatInput
-        files = []
-
-    if text:
-        st.session_state.messages.append(text)
-
-    if files:
-        st.session_state.attachments.extend(files)
-
-# Display text messages
-for i in st.session_state.messages:
-    with st.chat_message(name="user", avatar="💬"):
-        st.write(str(i))
-
-# Display uploaded images
-for file in st.session_state.attachments:
-    with st.chat_message(name="user", avatar="📸"):
-        st.image(file)
