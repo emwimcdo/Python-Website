@@ -137,14 +137,15 @@ if not st.session_state.get("loggedIn"):
             st.button("New to our platform? Sign Up.", on_click=switch_to_sign)
 
 if st.session_state.get("loggedIn"):
-    pick = False
+    if "pick" not in st.session_state:
+        st.session_state.pick = False
     logInScreen.empty()
     auth = st.session_state.get("auth", [])
     st.write(f"You are now logged in! Welcome {auth[0]}!")
     if st.button(f"Click here to change your profile picture. Your current one is {auth[4]}."):
-        pick = True
+        st.session_state["pick"] = True
         
-    if pick:  
+    if st.session_state.get["pick"]:  
         st.radio("Pick your emoji:", ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇","🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😜", "🤪", "😝", "🤑", "🤗", "🤭", "🤫", "🤔", "🤐", "😐", "😑", "😶", "😏", "😒", "🙄", "😬", "🤥", "😔", "😪", "🤤", "😴", "😷", "🤒", "🤕", "🤢", "🤮", "🤧", "🥵", "🥶", "🥴", "😵", "🤯", "🤠", "🥳", "😎", "🤓", "🧐", "😕", "😟", "🙁", "☹️", "😮", "😯", "😲", "😳", "🥺", "😦", "😧", "😨", "😰", "😥", "😢", "😭", "😱", "😖", "😣", "😞", "😓", "😩", "😫", "🥱", "😤", "😡", "😠", "🤬", "😈", "👿", "💀", "☠️", "🤡", "👹", "👺", "👻", "👽", "👾", "🤖"], key="pfpSessionState")
         if st.session_state.get("pfpSessionState"):
             st.session_state["auth"][4] = st.session_state.get("pfpSessionState")
