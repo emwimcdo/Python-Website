@@ -91,7 +91,7 @@ if chatInput:
 # Display text messages
 for i in st.session_state.messages:
     with st.chat_message(name="user", avatar="💬"):
-        st.write(i)
+        st.write(str(i))
 
 # Display uploaded images
 for file in st.session_state.attachments:
