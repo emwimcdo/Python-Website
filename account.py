@@ -140,21 +140,17 @@ if st.session_state.get("loggedIn"):
 
     # Only draw picker UI if it's active
     if st.session_state.pick:
-        selected = st.radio(
-            "Pick your emoji:",
-            ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
+        # This radio widget automatically stores selection in st.session_state["pfpSessionState"]
+        selected = st.radio("Pick your emoji:", ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
              "😋", "😛", "😜", "🤪", "😝", "🤑", "🤗", "🤭", "🤫", "🤔", "🤐", "😐", "😑", "😶", "😏", "😒", "🙄", "😬", "🤥",
              "😔", "😪", "🤤", "😴", "😷", "🤒", "🤕", "🤢", "🤮", "🤧", "🥵", "🥶", "🥴", "😵", "🤯", "🤠", "🥳", "😎", "🤓",
              "🧐", "😕", "😟", "🙁", "☹️", "😮", "😯", "😲", "😳", "🥺", "😦", "😧", "😨", "😰", "😥", "😢", "😭", "😱", "😖",
              "😣", "😞", "😓", "😩", "😫", "🥱", "😤", "😡", "😠", "🤬", "😈", "👿", "💀", "☠️", "🤡", "👹", "👺", "👻", "👽",
-             "👾", "🤖"],
-            index=None,
-            key="pfpSessionState"
-        )
+             "👾", "🤖"], key="pfpSessionState")
 
-        # Confirm change and clear picker UI
-        if st.button("Confirm profile change"):
-            st.session_state["auth"][4] = selected
-            st.success(f"✅ Your new profile picture is {selected}")
-            st.session_state.pick = False
-            st.session_state.pfpSessionState = selected  # Persist selected emoji
+    # Confirm and use the value directly from session_state
+    if st.button("Confirm profile change"):
+        st.session_state["auth"][4] = st.session_state["pfpSessionState"]  # Already stored
+        st.success(f"✅ Your new profile picture is {st.session_state['pfpSessionState']}")
+        st.session_state.pick = False
+            
