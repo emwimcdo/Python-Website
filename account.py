@@ -125,49 +125,36 @@ def signUp():
 
 # PAGE CONTROLS
 if st.session_state.get("loggedIn"):
-    # Initialize state flags
     if "pick" not in st.session_state:
         st.session_state.pick = False
-    if "pendingUpdate" not in st.session_state:
-        st.session_state.pendingUpdate = False
+    if "pfpSessionState" not in st.session_state:
+        st.session_state.pfpSessionState = st.session_state["auth"][4]  # Default emoji
 
     logInScreen.empty()
     auth = st.session_state.get("auth", [])
     st.write(f"You are now logged in! Welcome {auth[0]}!")
 
-    # Button to show emoji picker
+    # Button to open emoji picker
     if st.button(f"Click here to change your profile picture. Your current one is {auth[4]}."):
         st.session_state.pick = True
-        st.session_state.pendingUpdate = False  # Reset update flag
 
-    # Show emoji picker and store selection
+    # Only draw picker UI if it's active
     if st.session_state.pick:
-        st.radio(
+        selected = st.radio(
             "Pick your emoji:",
-            ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇","🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
-             "😋", "😛", "😜", "🤪", "😝", "🤑", "🤗", "🤭", "🤫", "🤔", "🤐", "😐", "😑", "😶", "😏", "😒", "🙄", "😬", "🤥", "😔",
-             "😪", "🤤", "😴", "😷", "🤒", "🤕", "🤢", "🤮", "🤧", "🥵", "🥶", "🥴", "😵", "🤯", "🤠", "🥳", "😎", "🤓", "🧐", "😕",
-             "😟", "🙁", "☹️", "😮", "😯", "😲", "😳", "🥺", "😦", "😧", "😨", "😰", "😥", "😢", "😭", "😱", "😖", "😣", "😞", "😓",
-             "😩", "😫", "🥱", "😤", "😡", "😠", "🤬", "😈", "👿", "💀", "☠️", "🤡", "👹", "👺", "👻", "👽", "👾", "🤖"],
+            ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
+             "😋", "😛", "😜", "🤪", "😝", "🤑", "🤗", "🤭", "🤫", "🤔", "🤐", "😐", "😑", "😶", "😏", "😒", "🙄", "😬", "🤥",
+             "😔", "😪", "🤤", "😴", "😷", "🤒", "🤕", "🤢", "🤮", "🤧", "🥵", "🥶", "🥴", "😵", "🤯", "🤠", "🥳", "😎", "🤓",
+             "🧐", "😕", "😟", "🙁", "☹️", "😮", "😯", "😲", "😳", "🥺", "😦", "😧", "😨", "😰", "😥", "😢", "😭", "😱", "😖",
+             "😣", "😞", "😓", "😩", "😫", "🥱", "😤", "😡", "😠", "🤬", "😈", "👿", "💀", "☠️", "🤡", "👹", "👺", "👻", "👽",
+             "👾", "🤖"],
+            index=None,
             key="pfpSessionState"
         )
 
-        # Confirm button triggers the update
+        # Confirm change and clear picker UI
         if st.button("Confirm profile change"):
-            st.session_state.pendingUpdate = True
-
-    # Apply the emoji change AFTER rerun
-    if st.session_state.pendingUpdate:
-        st.session_state["auth"][4] = st.session_state["pfpSessionState"]
-
-        # Optional: push update to Dropbox
-        updated = load_json("/accounts.json")
-        email = st.session_state["auth"][2]
-        if email in updated["Email"]:
-            idx = updated["Email"].index(email)
-            updated["Profile Picture"][idx] = st.session_state["pfpSessionState"]
-            save_json("/accounts.json", updated)
-
-        st.success(f"✅ Your new profile picture is {st.session_state['pfpSessionState']}")
-        st.session_state.pick = False
-        st.session_state.pendingUpdate = False
+            st.session_state["auth"][4] = selected
+            st.success(f"✅ Your new profile picture is {selected}")
+            st.session_state.pick = False
+            st.session_state.pfpSessionState = selected  # Persist selected emoji
