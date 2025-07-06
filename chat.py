@@ -68,7 +68,7 @@ st.title("Converse")
 # Main chat input
 chatInput = st.chat_input("Message:")#, accept_file="multiple", file_type=["jpg", "jpeg", "png"])
 
-if chatInput and st.session_state.get("auth", [])[0]:
+if chatInput and st.session_state.get("auth", []):
     dataToAppend = {
         "Sender": st.session_state.get("auth", [])[0],
         "Content": chatInput
