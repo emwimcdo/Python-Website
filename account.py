@@ -163,7 +163,7 @@ if st.session_state.get("loggedIn"):
         st.session_state["auth"][4] = st.session_state.get("selection")
 
         # Confirm and use the value directly from session_state
-        if st.button("Confirm profile change", key="confirm"):
+        if st.button("Confirm profile change", key="confirmButton"):
             st.session_state.pick = False
             st.rerun()
             del st.session_state["selection"]
