@@ -58,7 +58,8 @@ if "wantToLogIn" not in st.session_state:
     st.session_state.wantToLogIn = False
 if "loggedIn" not in st.session_state:
     st.session_state.loggedIn = False
-
+if "messageHistory" not in st.session_state:
+    st.session_state.messageHistory = []
 def sendMessage(message, user = st.session_state.get("fName")):
     pass
 
@@ -66,11 +67,6 @@ st.title("Converse")
 
 # Main chat input
 chatInput = st.chat_input("Message:")#, accept_file="multiple", file_type=["jpg", "jpeg", "png"])
-if "messageHistory" not in st.session_state:
-    st.session_state.messageHistory = {
-        "Sender": "",
-        "Content": ""
-    }
 
 if chatInput and st.session_state.get("auth", [])[0]:
     dataToAppend = {
@@ -88,9 +84,9 @@ else:
 for i in st.session_state.get("messageHistory"):
     if "auth" not in st.session_state:
         with st.chat_message(name="Guest User"):
-            st.write("Guest User: "+i)
+            st.write("Guest User: "+i["Content"])
     else:
         with st.chat_message(name=st.session_state.get("auth", [])[0], avatar=st.session_state.get("auth")[4]):
-            st.write(f"{st.session_state.get("auth", [])[0]}: {i}")
+            st.write(f"{i["Sender"]}: {i["Content"]}")
 
 
