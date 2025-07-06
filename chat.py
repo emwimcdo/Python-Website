@@ -71,13 +71,15 @@ chatInput = st.chat_input("Message:")#, accept_file="multiple", file_type=["jpg"
 if chatInput and st.session_state.get("auth", []):
     dataToAppend = {
         "Sender": st.session_state.get("auth", [])[0],
-        "Content": chatInput
+        "Content": chatInput,
+        "Icon": st.session_state.get("auth", [])[4]
     }
     st.session_state.messageHistory.append(dataToAppend)
 else:
     dataToAppend = {
         "Sender": "Guest User",
-        "Content": chatInput
+        "Content": chatInput,
+        "Icon": "G"
     }
     st.session_state.messageHistory.append(dataToAppend)
 
