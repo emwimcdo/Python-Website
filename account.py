@@ -151,7 +151,7 @@ if st.session_state.get("loggedIn"):
         st.session_state.pick = True
 
     # Only draw picker UI if it's active
-    while st.session_state.pick:
+    if st.session_state.pick:
         # This radio widget automatically stores selection in st.session_state["pfpSessionState"]
         if "selection" not in st.session_state:
             st.session_state.selection = st.radio("Pick your emoji:", ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
