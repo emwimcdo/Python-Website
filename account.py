@@ -99,7 +99,9 @@ def logIn():
             st.error("Email not found.")
     if forgotPass:
         forgotPassEmail = st.text_input("Put Email Here", key="ForgotPassEmail")
-        submit = st.button("Submit Link", key="GetLink")
+        submit = st.button("Submit Link", key="GetLinkk")
+        if submit:
+            st.session_state.GetLink = True
         msg = MIMEText("Reset you password here: LINK WILL BE ADDED")
         if st.session_state.get("GetLink"):
             server = smtplib.SMTP("smtp.gmail.com", 587)
