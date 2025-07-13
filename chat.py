@@ -66,7 +66,11 @@ def sendMessage(message, user = st.session_state.get("fName")):
 st.title("Converse")
 
 # Main chat input
-chatInput = st.chat_input("Message:")#, accept_file="multiple", file_type=["jpg", "jpeg", "png"])
+col1, col2 = st.columns([10,1])
+with col1:
+    chatInput = st.chat_input("Message:")#, accept_file="multiple", file_type=["jpg", "jpeg", "png"])
+with col2:
+    st.button("CLICK ME")
 
 if chatInput and st.session_state.get("auth", []):
     dataToAppend = {
