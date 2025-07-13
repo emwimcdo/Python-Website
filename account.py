@@ -98,14 +98,14 @@ def logIn():
         else:
             st.error("Email not found.")
     if forgotPass:
-        forgotPassEmail = st.text_input("Put Email Here")
-        submit = st.button("Submit Link")
+        forgotPassEmail = st.text_input("Put Email Here", key="ForgotPassEmail")
+        submit = st.button("Submit Link", key="GetLink")
         msg = MIMEText("Reset you password here: LINK WILL BE ADDED")
-        if submit:
+        if st.session_state.get("GetLink"):
             server = smtplib.SMTP("smtp.gmail.com", 587)
             server.starttls()
             server.login("website.web.noreply@gmail.com", "eepq zprb gobt lrcj")
-            server.sendmail("website.web.noreply@gmail.com", forgotPassEmail, msg.as_string())
+            server.sendmail("website.web.noreply@gmail.com", st.session_state.get("ForgotPassEmail"), msg.as_string())
             server.quit()
             st.success("Email Sent!")
 
