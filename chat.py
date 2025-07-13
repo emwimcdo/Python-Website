@@ -79,7 +79,7 @@ else:
     dataToAppend = {
         "Sender": "Guest User",
         "Content": chatInput,
-        "Icon": ""
+        "Icon": "🧩"
     }
     st.session_state.messageHistory.append(dataToAppend)
 
