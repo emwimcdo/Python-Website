@@ -95,5 +95,8 @@ for i in st.session_state.get("messageHistory"):
     else:
         with st.chat_message(i['Sender'], avatar=i['Icon']):
             st.write(f"{i['Sender']}: {i['Content']}")
+    save = load_json("/chat.json")
+    dataToSave = save + st.session_state.get("messageHistory")
+    save_json("/chat.json", dataToSave)
 
 
