@@ -6,6 +6,8 @@ import json
 import io
 import dropbox
 import requests
+import smtplib
+from email.mime.text import MIMEText
 
 #from dotenv import load_dotenv  # Only needed if running locally with .env
 
@@ -95,7 +97,19 @@ def logIn():
                 st.error("Incorrect password.")
         else:
             st.error("Email not found.")
-    
+    if forgotPass:
+        forgotPassEmail = st.text_input("Put Email Here")
+        submit = st.button("Submit Link")
+        msg = MIMEText("Reset you password here: LINK WILL BE ADDED")
+        if submit:
+            server = smtplib.SMTP("smtp.gmail.com", 587)
+            server.starttls()
+            server.login("website.web.noreply@gmail.com", "eepq zprb gobt lrcj")
+            server.sendmail("website.web.noreply@gmail.com", forgotPassEmail, msg.as_string())
+            server.quit()
+            st.success("Email Sent!")
+
+
     return st.session_state.get("auth", [])
 
 # SIGNUP FUNCTION
