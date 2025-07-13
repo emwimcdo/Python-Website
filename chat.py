@@ -85,7 +85,7 @@ else:
 
 for i in st.session_state.get("messageHistory"):
     if "auth" not in st.session_state:
-        with st.chat_message("Guest User", avatar="G"):
+        with st.chat_message("Guest User", avatar=i["Icon"]):
             st.write(f"Guest User: {i['Content']}")
     else:
         with st.chat_message(i['Sender'], avatar=i['Icon']):
