@@ -66,20 +66,21 @@ def sendMessage(message, user = st.session_state.get("fName")):
 st.title("Converse")
 
 # Main chat input
-col1, col2 = st.columns([10,1])
-with col1:
-    chatInput = st.chat_input("Message:")#, accept_file="multiple", file_type=["jpg", "jpeg", "png"])
-with col2:
-    st.button("CLICK ME")
+#col1, col2 = st.columns([10,1])
+chatInput = st.chat_input("Message:")#, accept_file="multiple", file_type=["jpg", "jpeg", "png"])
+if "sendConfirm" not in st.session_state:
+    st.session_state.sendConfirm = False
+if chatInput and isinstance(chatInput, str):
+    st.session_state.sendConfirm = True
 
-if chatInput and st.session_state.get("auth", []):
+if chatInput and st.session_state.get("auth", []) and st.session_state.get("sendConfirm"):
     dataToAppend = {
         "Sender": st.session_state.get("auth", [])[0],
         "Content": chatInput,
         "Icon": st.session_state.get("auth", [])[4]
     }
     st.session_state.messageHistory.append(dataToAppend)
-else:
+elif  chatInput and st.session_state.get("sendConfirm"):
     dataToAppend = {
         "Sender": "Guest User",
         "Content": chatInput,
