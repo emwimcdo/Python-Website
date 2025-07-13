@@ -81,8 +81,11 @@ def logIn():
     email = st.text_input("Email address:", key="LogInEmail")
     password = st.text_input("Password:", type="password", key="LogInPass")
     data = load_json("/accounts.json", {"fName": [], "lName": [], "Email": [], "Password": []})
-    signIn = st.button("Log In")
-    forgotPass = st.button("Forgot Password")
+    buttonCol1, buttonCol2 = st.columns()
+    with buttonCol1:
+        signIn = st.button("Log In")
+    with buttonCol2:
+        forgotPass = st.button("Forgot Password")
     if signIn:
         emailV = data["Email"]
         passV = data["Password"]
