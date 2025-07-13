@@ -54,12 +54,13 @@ def save_json(path, data):
     dbx.files_upload(buffer.read(), path, mode=dropbox.files.WriteMode.overwrite)
 
 # App session state
+save = load_json("/chat.json")
 if "wantToLogIn" not in st.session_state:
     st.session_state.wantToLogIn = False
 if "loggedIn" not in st.session_state:
     st.session_state.loggedIn = False
 if "messageHistory" not in st.session_state:
-    st.session_state.messageHistory = []
+    st.session_state.messageHistory = save
 def sendMessage(message, user = st.session_state.get("fName")):
     pass
 
@@ -95,7 +96,7 @@ for i in st.session_state.get("messageHistory"):
     else:
         with st.chat_message(i['Sender'], avatar=i['Icon']):
             st.write(f"{i['Sender']}: {i['Content']}")
-    save = load_json("/chat.json")
+    
     dataToSave = save + st.session_state.get("messageHistory")
     save_json("/chat.json", dataToSave)
 
