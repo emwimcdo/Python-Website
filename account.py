@@ -105,6 +105,7 @@ def logIn():
             server = smtplib.SMTP("smtp.gmail.com", 587)
             server.starttls()
             server.login("website.web.noreply@gmail.com", "eepq zprb gobt lrcj")
+            st.write(f"Sending to: {st.session_state.get('ForgotPassEmail')}")
             server.sendmail("website.web.noreply@gmail.com", st.session_state.get("ForgotPassEmail"), msg.as_string())
             server.quit()
             st.success("Email Sent!")
