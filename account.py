@@ -97,18 +97,32 @@ def logIn():
                 st.error("Incorrect password.")
         else:
             st.error("Email not found.")
-    if forgotPass:
-        forgotPassEmail = st.text_input("Put Email Here", key="ForgotPassEmail")
-        st.write(f"[DEBUG] Email entered: {forgotPassEmail}") 
-        if st.button("Submit Link", key="GetLink"):
-            msg = MIMEText("Reset you password here: LINK WILL BE ADDED")
-            server = smtplib.SMTP("smtp.gmail.com", 587)
-            server.starttls()
-            server.login("website.web.noreply@gmail.com", "eepq zprb gobt lrcj")
-            server.sendmail("website.web.noreply@gmail.com", st.session_state.get("ForgotPassEmail"), msg.as_string())
-            server.quit()
-            st.success("Email Sent!")
+    forgotPassEmail = st.text_input("Put Email Here", key="ForgotPassEmail")
+    st.write(f"[DEBUG] Email entered: {forgotPassEmail}")
 
+    if st.button("Submit Link"):
+        st.write("[DEBUG] Submit button clicked")
+
+        if forgotPassEmail.strip():
+            try:
+                msg = MIMEText("Reset your password here: LINK WILL BE ADDED")
+                msg["Subject"] = "Password Reset"
+                msg["From"] = "website.web.noreply@gmail.com"
+                msg["To"] = forgotPassEmail
+
+                server = smtplib.SMTP("smtp.gmail.com", 587)
+                server.starttls()
+                server.login("website.web.noreply@gmail.com", "eepq zprb gobt lrcj")
+                server.sendmail("website.web.noreply@gmail.com", forgotPassEmail, msg.as_string())
+                server.quit()
+
+                st.success("Email Sent! ✅")
+
+            except Exception as e:
+                st.error("Email failed to send.")
+                st.write(f"[DEBUG] Error: {e}")
+        else:
+            st.warning("Please enter a valid email address.")
 
     return st.session_state.get("auth", [])
 
