@@ -81,7 +81,7 @@ def logIn():
     email = st.text_input("Email address:", key="LogInEmail")
     password = st.text_input("Password:", type="password", key="LogInPass")
     data = load_json("/accounts.json", {"fName": [], "lName": [], "Email": [], "Password": []})
-    buttonCol1, buttonCol2 = st.columns()
+    buttonCol1, buttonCol2 = st.columns(2)
     with buttonCol1:
         signIn = st.button("Log In")
     with buttonCol2:
