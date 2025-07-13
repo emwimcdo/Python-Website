@@ -101,9 +101,7 @@ def logIn():
         forgotPassEmail = st.text_input("Put Email Here", key="ForgotPassEmail")
         
         if st.button("Submit Link", key="GetLink"):
-            st.session_state.GetLink = True
-        msg = MIMEText("Reset you password here: LINK WILL BE ADDED")
-        if st.session_state.get("GetLink"):
+            msg = MIMEText("Reset you password here: LINK WILL BE ADDED")
             server = smtplib.SMTP("smtp.gmail.com", 587)
             server.starttls()
             server.login("website.web.noreply@gmail.com", "eepq zprb gobt lrcj")
