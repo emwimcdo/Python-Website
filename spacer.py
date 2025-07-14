@@ -1,4 +1,5 @@
 import streamlit as st
 
-st.info("Redirecting to Donate page...")
-st.switch_page("Donate")
+# Only attempt redirect inside the page itself—not when the module is first imported
+if __name__ == "__main__" or st._is_running_with_streamlit:
+    st.switch_page("Donate")
