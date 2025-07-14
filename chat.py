@@ -90,12 +90,8 @@ elif  chatInput and st.session_state.get("sendConfirm"):
     st.session_state.messageHistory.append(dataToAppend)
 
 for i in st.session_state.get("messageHistory"):
-    if "auth" not in st.session_state:
-        with st.chat_message("Guest User", avatar=i["Icon"]):
-            st.write(f"Guest User: {i['Content']}")
-    else:
-        with st.chat_message(i['Sender'], avatar=i['Icon']):
-            st.write(f"{i['Sender']}: {i['Content']}")
+    with st.chat_message(i['Sender'], avatar=i['Icon']):
+        st.write(f"{i['Sender']}: {i['Content']}")
     
     dataToSave = save + st.session_state.get("messageHistory")
 save_json("/chat.json", st.session_state.get("messageHistory"))
