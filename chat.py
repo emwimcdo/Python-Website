@@ -98,6 +98,6 @@ for i in st.session_state.get("messageHistory"):
             st.write(f"{i['Sender']}: {i['Content']}")
     
     dataToSave = save + st.session_state.get("messageHistory")
-    save_json("/chat.json", dataToSave)
+save_json("/chat.json", dataToSave)
 
 
